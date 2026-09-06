@@ -196,7 +196,11 @@ public class PilotCommand implements IBrigadierCommandHelper {
             return -1;
         } else {
             // TODO: Reinforce logic and check against the permissiosn here aswell!
-            final TypeSafeCraftType craftType = commandContext.getArgument("type", TypeSafeCraftType.class);
+            final TypeSafeCraftType craftType = IBrigadierCommandHelper.tryGetArgument("type", TypeSafeCraftType.class, commandContext, null);
+            if (craftType == null) {
+                commandContext.getSource().getSender().sendMessage(ChatUtils.commandPrefix().append(I18nSupport.getInternationalisedComponent("Pilot - No Craft Type")));
+                return -1;
+            }
             final World world = pilot == null ? executor.getWorld() : pilot.getWorld();
             final MovecraftLocation startPoint = MathUtils.bukkit2MovecraftLoc(executor.getLocation());
 
