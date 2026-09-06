@@ -21,7 +21,7 @@ public class CraftTypeArgumentType implements CustomArgumentType.Converted<TypeS
     @Override
     public TypeSafeCraftType convert(String value) throws CommandSyntaxException {
         if (value != null) {
-            TypeSafeCraftType type = CraftManager.getInstance().getCraftTypeByName(value);
+            TypeSafeCraftType type = CraftManager.getInstance().getCraftTypeByName(value.replace('"', ' ').trim());
             return type;
         }
         return null;
@@ -45,7 +45,7 @@ public class CraftTypeArgumentType implements CustomArgumentType.Converted<TypeS
             boolean hasPerm = checkFunction.test(ct);
             String ctNameLowerCase = ct.getName().toLowerCase();
             if (hasPerm && ctNameLowerCase.startsWith(builder.getRemainingLowerCase())) {
-                builder.suggest(ct.getName());
+                builder.suggest(StringArgumentType.escapeIfRequired(ct.getName()));
             }
         });
         return builder.buildFuture();
