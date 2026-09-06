@@ -16,6 +16,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class WindfarerCommand {
 
@@ -24,8 +25,7 @@ public class WindfarerCommand {
         RELOAD_TYPES,
         TYPE_LIST,
         ACTIVE_CRAFTS,
-        REGISTERED_SIGNS,
-        WRECK_JOBS
+        REGISTERED_SIGNS
     }
 
     public static void register(final Commands commands) {
@@ -82,10 +82,10 @@ public class WindfarerCommand {
     private static void processRegisteredSigns(CommandSender sender) {
         sender.sendMessage(ChatUtils.commandPrefix().append(I18nSupport.getInternationalisedComponent("Windfarer - Registered Signs")));
 
-        for (AbstractMovecraftSign sign : MovecraftSignRegistry.INSTANCE.getAllValues()) {
-            sender.sendMessage(Component.text(" - " + sign.getId()).hoverEvent(
+        for (Map.Entry<String, AbstractMovecraftSign> entry : MovecraftSignRegistry.INSTANCE.entries()) {
+            sender.sendMessage(Component.text(" - " + entry.getKey()).hoverEvent(
                             HoverEvent.showText(
-                                    Component.text("Class: " + sign.getClass().getName())
+                                    Component.text("Class: " + entry.getValue().getClass().getName())
                             )
                     )
             );
