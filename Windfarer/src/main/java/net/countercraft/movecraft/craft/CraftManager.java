@@ -128,7 +128,8 @@ public class CraftManager implements Iterable<Craft>{
         Queue<TypeSafeCraftType> loadedTypes = new LinkedList<>();
         while (!queue.isEmpty()) {
             File file = queue.poll();
-            final String name = file.getAbsolutePath().substring(craftFileFolder.getAbsolutePath().length() + 1, file.getAbsolutePath().lastIndexOf('.'));
+            // Replaces \ with / at the end
+            final String name = file.getAbsolutePath().substring(craftFileFolder.getAbsolutePath().length() + 1, file.getAbsolutePath().lastIndexOf('.')).replace('\\', '/');
             Movecraft.getInstance().getLogger().info(String.format("Loading crafttype file <%s> (type name will be %s>)...", file.getName(), name));
             Optional<TypeSafeCraftType> optTypeSafeCraftType = TypeSafeCraftType.load(file, name, this::getCraftTypeByName, Movecraft.getInstance().getLogger());
 
@@ -160,7 +161,7 @@ public class CraftManager implements Iterable<Craft>{
     }
 
     private void registerType(final String id, final TypeSafeCraftType type, Consumer<TypeSafeCraftType> removeFromLoadListCallback) {
-        final TypeSafeCraftType previous = this.craftTypeMap.put(id, type);
+        final TypeSafeCraftType previous = this.craftTypeMap.put(id.toLowerCase(Locale.ROOT), type);
 
         if (previous != null) {
             Movecraft.getInstance().getLogger().warning("Overriding crafttype setting with name <" + id + ">! This means there are duplicates!");
@@ -437,7 +438,7 @@ public class CraftManager implements Iterable<Craft>{
     }
 
     public TypeSafeCraftType getCraftTypeByName(String ident) {
-        return craftTypeMap.getOrDefault(ident.toUpperCase(), null);
+        return craftTypeMap.getOrDefault(ident.toLowerCase(Locale.ROOT), null);
     }
 
     //region Craft set management
