@@ -19,7 +19,7 @@ public class MovecraftSignRegistry extends SimpleRegistry<String, AbstractMovecr
         // Now, add all types...
         for (TypeSafeCraftType type : loadedTypes) {
             AbstractCraftPilotSign sign = signFactory.apply(type);
-            register(type.getSignHeader(), sign, true);
+            register(type.getSignHeader(), sign, true, new String[0]);
         }
     }
 
