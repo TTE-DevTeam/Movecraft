@@ -8,6 +8,8 @@ import net.countercraft.movecraft.events.CraftDetectEvent;
 import net.countercraft.movecraft.events.CraftStopCruiseEvent;
 import net.countercraft.movecraft.events.SignTranslateEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.block.Action;
 
@@ -130,6 +132,11 @@ public abstract class AbstractCraftSign extends AbstractMovecraftSign {
 
     public void onCraftStopCruising(final Craft craft, final SignListener.SignWrapper sign, CraftStopCruiseEvent.Reason reason) {
         // Do nothing by default
+    }
+
+    @Override
+    public TextColor highlightColor() {
+        return NamedTextColor.RED;
     }
 
 }

@@ -4,6 +4,7 @@ import net.countercraft.movecraft.MovecraftLocation;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.events.CraftDetectEvent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -147,4 +148,10 @@ public abstract class AbstractInformationSign extends AbstractCraftSign {
             this.sendUpdatePacket(craft, sign, REFRESH_CAUSE.SIGN_CLICK);
         }
     }
+
+    @Override
+    public TextColor highlightColor() {
+        return NamedTextColor.LIGHT_PURPLE;
+    }
+
 }

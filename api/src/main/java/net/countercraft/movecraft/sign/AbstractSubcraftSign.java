@@ -6,6 +6,8 @@ import net.countercraft.movecraft.craft.PlayerCraft;
 import net.countercraft.movecraft.craft.type.PropertyKeys;
 import net.countercraft.movecraft.craft.type.TypeSafeCraftType;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -198,4 +200,10 @@ public abstract class AbstractSubcraftSign extends AbstractCraftSign {
         }
         return craft.getHitBox().inBounds(interactor.getLocation().getX(), interactor.getLocation().getY(), interactor.getLocation().getZ());
     }
+
+    @Override
+    public TextColor highlightColor() {
+        return NamedTextColor.GOLD;
+    }
+
 }

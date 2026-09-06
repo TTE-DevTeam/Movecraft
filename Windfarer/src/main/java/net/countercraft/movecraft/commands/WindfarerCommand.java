@@ -86,12 +86,7 @@ public class WindfarerCommand {
 
         for (Map.Entry<String, AbstractMovecraftSign> entry : MovecraftSignRegistry.INSTANCE.entries()) {
             sender.sendMessage(Component.text(" - " + entry.getKey())
-                    .color(
-                            (entry.getValue() instanceof AbstractCraftPilotSign) ?
-                                    NamedTextColor.YELLOW
-                                    :
-                                    NamedTextColor.WHITE
-                    )
+                    .color(entry.getValue().highlightColor())
                     .hoverEvent(
                             HoverEvent.showText(
                                     Component.text("Class: " + entry.getValue().getClass().getName())

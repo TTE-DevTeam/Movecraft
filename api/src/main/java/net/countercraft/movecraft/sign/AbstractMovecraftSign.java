@@ -4,6 +4,8 @@ import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.craft.type.TypeSafeCraftType;
 import net.countercraft.movecraft.util.MathUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -210,4 +212,9 @@ public abstract class AbstractMovecraftSign {
         }
         return this.id;
     }
+
+    public TextColor highlightColor() {
+        return NamedTextColor.WHITE;
+    }
+
 }
