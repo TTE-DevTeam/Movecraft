@@ -3,6 +3,7 @@ package net.countercraft.movecraft.commands;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
@@ -35,6 +36,11 @@ import java.util.function.Function;
 public class PilotCommand implements IBrigadierCommandHelper {
 
     public static void register(final Commands commands) {
+        final ArgumentBuilder<CommandSourceStack, ?> argName = Commands.argument("name", StringArgumentType.string());
+        final ArgumentBuilder<CommandSourceStack, ?> argLifetime = Commands.argument("lifetime", LongArgumentType.longArg(0));
+        final ArgumentBuilder<CommandSourceStack, ?> argAutoRelease = Commands.argument("shouldAutoRelease", BoolArgumentType.bool());
+        final ArgumentBuilder<CommandSourceStack, ?> argPilot = Commands.argument("pilot", ArgumentTypes.entity());
+
         commands.register(
                 Commands.literal("pilot")
                         .requires(source -> {
@@ -70,17 +76,18 @@ public class PilotCommand implements IBrigadierCommandHelper {
                                 // Pilot as NPC craft
                                 .then(Commands.literal("--npc").requires(css -> css.getSender().hasPermission("movecraft.commands.pilot.npc"))
                                         .executes(PilotCommand::processNPC)
-                                        .then(Commands.argument("name", StringArgumentType.string())
-                                                .executes(PilotCommand::processNPC)
-                                        )
-                                        .then(Commands.argument("lifetime", LongArgumentType.longArg(0))
-                                                .executes(PilotCommand::processNPC)
-                                        )
-                                        .then(Commands.argument("shouldAutoRelease", BoolArgumentType.bool())
-                                                .executes(PilotCommand::processNPC)
-                                        )
-                                        .then(Commands.argument("pilot", ArgumentTypes.entity())
-                                                .executes(PilotCommand::processNPC)
+                                        .then(
+                                                argName
+                                                        .then(
+                                                                argLifetime
+                                                                        .then(
+                                                                                argAutoRelease
+                                                                                        .then(
+                                                                                                argPilot
+                                                                                                        .executes(PilotCommand::processNPC)
+                                                                                        )
+                                                                        )
+                                                        )
                                         )
                                 )
                         )
@@ -190,7 +197,7 @@ public class PilotCommand implements IBrigadierCommandHelper {
         } else {
             // TODO: Reinforce logic and check against the permissiosn here aswell!
             final TypeSafeCraftType craftType = commandContext.getArgument("type", TypeSafeCraftType.class);
-            final World world = executor.getWorld();
+            final World world = pilot == null ? executor.getWorld() : pilot.getWorld();
             final MovecraftLocation startPoint = MathUtils.bukkit2MovecraftLoc(executor.getLocation());
 
             CraftManager.getInstance().detect(
