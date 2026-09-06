@@ -6,11 +6,13 @@ import net.countercraft.movecraft.commands.argument.type.EnumArgumentType;
 import net.countercraft.movecraft.craft.CraftManager;
 import net.countercraft.movecraft.craft.type.TypeSafeCraftType;
 import net.countercraft.movecraft.localisation.I18nSupport;
+import net.countercraft.movecraft.sign.AbstractCraftPilotSign;
 import net.countercraft.movecraft.sign.AbstractMovecraftSign;
 import net.countercraft.movecraft.sign.MovecraftSignRegistry;
 import net.countercraft.movecraft.util.ChatUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
 
@@ -83,7 +85,14 @@ public class WindfarerCommand {
         sender.sendMessage(ChatUtils.commandPrefix().append(I18nSupport.getInternationalisedComponent("Windfarer - Registered Signs")));
 
         for (Map.Entry<String, AbstractMovecraftSign> entry : MovecraftSignRegistry.INSTANCE.entries()) {
-            sender.sendMessage(Component.text(" - " + entry.getKey()).hoverEvent(
+            sender.sendMessage(Component.text(" - " + entry.getKey())
+                    .color(
+                            (entry.getValue() instanceof AbstractCraftPilotSign) ?
+                                    NamedTextColor.YELLOW
+                                    :
+                                    NamedTextColor.WHITE
+                    )
+                    .hoverEvent(
                             HoverEvent.showText(
                                     Component.text("Class: " + entry.getValue().getClass().getName())
                             )
@@ -98,7 +107,7 @@ public class WindfarerCommand {
         for (TypeSafeCraftType tsct : CraftManager.getInstance().getTypesafeCraftTypes()) {
             sender.sendMessage(Component.text(" - " + tsct.getName()).hoverEvent(
                     HoverEvent.showText(
-                            Component.text("Parent: " + tsct.getParent() == null ? "n/a" : tsct.getParent().getName())
+                            Component.text("Parent: " + (tsct.getParent() == null ? "n/a" : tsct.getParent().getName()))
                     )
                 )
             );
