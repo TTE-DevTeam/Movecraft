@@ -18,6 +18,7 @@ movecraft:
         - "#minecraft:logs"
         - "#minecraft:glass_blocks"
         - "#minecraft:glass_panes"
+        - tinted_glass
         - coal_block
         - iron_block
         - gold_block

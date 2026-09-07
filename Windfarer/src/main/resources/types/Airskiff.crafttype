@@ -297,6 +297,7 @@ movecraft:
         - redstone_wire
         - redstone_torch
         - redstone_wall_torch
+        - redstone_block
         - repeater
         - comparator
         - lever
@@ -363,6 +364,7 @@ movecraft:
     speed:
       speed: 1.50
       half_when_underwater: false
+    modify_entity_yaw_on_rotation: false
     cruise:
       enabled: true
       skip_blocks: 3

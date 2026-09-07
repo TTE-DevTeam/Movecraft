@@ -4,7 +4,10 @@ movecraft:
     name: "Turret"
     block:
       allowed:
-        - "#minecraft:wool"
+        - light_gray_wool
+        - black_terracotta
+        - light_gray_terracotta
+        - gray_terracotta
         - "#minecraft:slabs"
         - "#minecraft:stairs"
         - "#minecraft:walls"
@@ -115,8 +118,7 @@ movecraft:
         - packed_mud
         - chiseled_sandstone
         - chiseled_red_sandstone
-        - chiseled_nether_bricks
-        - cracked_nether_bricks
+        - nether_brick_stairs
         - basalt
         - smooth_basalt
         - polished_basalt
