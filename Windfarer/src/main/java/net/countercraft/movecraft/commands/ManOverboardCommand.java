@@ -30,7 +30,7 @@ public class ManOverboardCommand {
 
     public static void register(final Commands commands) {
         commands.register(
-                Commands.literal("directcontrol")
+                Commands.literal("manoverboard")
                         .requires(source -> {
                             if (!(source.getExecutor() instanceof Entity)) {
                                 return false;
