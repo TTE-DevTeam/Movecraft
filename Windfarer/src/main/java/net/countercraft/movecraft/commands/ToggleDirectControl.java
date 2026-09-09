@@ -4,7 +4,6 @@ import io.papermc.paper.command.brigadier.Commands;
 import net.countercraft.movecraft.commands.argument.type.EnumArgumentType;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.craft.CraftManager;
-import net.countercraft.movecraft.craft.PilotedCraft;
 import net.countercraft.movecraft.craft.PlayerCraft;
 import net.countercraft.movecraft.craft.controller.directControl.HelmsManManager;
 import net.countercraft.movecraft.craft.type.PropertyKeys;
