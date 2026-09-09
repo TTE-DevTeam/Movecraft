@@ -17,18 +17,18 @@ import java.util.Optional;
 public class RotateCommand {
 
     enum ROTATE_OPTIONS {
-        LEFT(Action.LEFT_CLICK_BLOCK),
-        RIGHT(Action.RIGHT_CLICK_BLOCK),
+        LEFT(MovecraftRotation.ANTICLOCKWISE),
+        RIGHT(MovecraftRotation.CLOCKWISE),
         ;
 
-        private Action clickType;
+        private MovecraftRotation movecraftRotation;
 
-        ROTATE_OPTIONS(Action clickType) {
-            this.clickType = clickType;
+        ROTATE_OPTIONS(MovecraftRotation movecraftRotation) {
+            this.movecraftRotation = movecraftRotation;
         }
 
-        public Action clickType() {
-            return this.clickType;
+        public MovecraftRotation movecraftRotation() {
+            return this.movecraftRotation;
         }
     }
 
@@ -93,7 +93,7 @@ public class RotateCommand {
             else if (rotation == null) {
                 rotation = ROTATE_OPTIONS.RIGHT;
             }
-            craft.rotate(MovecraftRotation.CLOCKWISE, craft.getHitBox().getMidPoint());
+            craft.rotate(rotation.movecraftRotation(), craft.getHitBox().getMidPoint());
         } else {
             executor.sendMessage(ChatUtils.MOVECRAFT_COMMAND_PREFIX + I18nSupport.getInternationalisedString("You must be piloting a craft"));
         }
